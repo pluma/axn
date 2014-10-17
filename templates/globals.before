@@ -1,0 +1,3 @@
+(function(root){
+var require=function(key){return root[key];};
+var module = {};

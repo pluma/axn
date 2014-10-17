@@ -1,0 +1,23 @@
+{
+  "name": "axn",
+  "repo": "pluma/axn",
+  "version": "0.0.0",
+  "description": "Minimalist listenable actions.",
+  "license": "MIT",
+  "keywords": [
+    "action",
+    "events",
+    "emitter",
+    "signals"
+  ],
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": ["dist/axn.js"],
+  "main": "./dist/axn.js",
+  "ignore": [
+    "**/.*",
+    "build",
+    "components",
+    "node_modules"
+  ]
+}

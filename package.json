@@ -1,0 +1,62 @@
+{
+  "name": "axn",
+  "version": "0.0.0",
+  "author": "Alan Plum <me@pluma.io>",
+  "description": "Minimalist listenable actions.",
+  "licenses": {
+    "type": "MIT",
+    "url": "https://github.com/pluma/axn/blob/master/LICENSE"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pluma/axn.git"
+  },
+  "keywords": [
+    "action",
+    "events",
+    "emitter",
+    "signals"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "coveralls": "^2.11.2",
+    "expect.js": "^0.3.1",
+    "istanbul": "^0.3.2",
+    "jshint": "^2.5.6",
+    "mocha": "^1.21.5",
+    "uglify-js": "^2.4.15"
+  },
+  "main": "./index.js",
+  "scripts": {
+    "lint": "jshint index.js test",
+    "test": "mocha --growl -R spec",
+    "cover": "npm run lint && istanbul cover --report lcov _mocha -- -R spec",
+    "coveralls": "npm run cover && cat ./coverage/lcov.info | coveralls ; rm -rf ./coverage",
+    "dist": "npm run cjs-min; npm run globals-min; npm run amd-min",
+    "cjs": "cp index.js dist/axn.js",
+    "cjs-min": "npm run cjs; uglifyjs dist/axn.js > dist/axn.min.js",
+    "globals": "cat templates/globals.before index.js templates/globals.after > dist/axn.globals.js",
+    "globals-min": "npm run globals; uglifyjs dist/axn.globals.js > dist/axn.globals.min.js",
+    "amd": "cat templates/amd.before index.js templates/amd.after > dist/axn.amd.js",
+    "amd-min": "npm run amd; uglifyjs dist/axn.amd.js > dist/axn.amd.min.js"
+  },
+  "engines": {
+    "node": ">=0.6"
+  },
+  "testling": {
+    "files": "spec/*.js",
+    "harness": "mocha",
+    "browsers": [
+      "chrome/latest",
+      "chrome/canary",
+      "firefox/3.6..4",
+      "firefox/latest",
+      "firefox/nightly",
+      "opera/10",
+      "opera/latest",
+      "opera/next",
+      "safari/4..latest",
+      "ie/6..latest"
+    ]
+  }
+}

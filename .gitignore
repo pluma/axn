@@ -1,0 +1,7 @@
+.*.swp
+build
+components
+dist/vendor
+node_modules
+coverage
+npm-debug.log
