@@ -1,7 +1,7 @@
 {
   "name": "axn",
   "repo": "pluma/axn",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Minimalist listenable actions.",
   "license": "MIT",
   "keywords": [
