@@ -8,15 +8,15 @@ function axn(spec) {
   }
   action._listeners = [];
   var key;
-  for (key in axn.methods) {
-    if (action.hasOwnProperty(key)) continue;
-    action[key] = axn.methods[key];
-  }
   if (spec) {
     for (key in spec) {
       if (action.hasOwnProperty(key)) continue;
       action[key] = spec[key];
     }
+  }
+  for (key in axn.methods) {
+    if (action.hasOwnProperty(key)) continue;
+    action[key] = axn.methods[key];
   }
   return action;
 }
