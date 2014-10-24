@@ -21,6 +21,16 @@ describe('axn', function() {
     action(message);
     expect(messages).to.only.contain(message);
   });
+  it('binds listeners to the given context', function (done) {
+    var ctx = {hello: 'world'};
+    var action = axn();
+    var listener = function() {
+      expect(this).to.equal(ctx);
+      done();
+    };
+    action.listen(listener, ctx);
+    action();
+  });
   it('notifies each listener in sequence', function() {
     var action = axn();
     var results = [];
