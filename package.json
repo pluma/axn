@@ -1,6 +1,6 @@
 {
   "name": "axn",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "author": "Alan Plum <me@pluma.io>",
   "description": "Minimalist listenable actions.",
   "licenses": {
