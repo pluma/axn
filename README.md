@@ -1,6 +1,6 @@
 # Synopsis
 
-**axn** is a small (< 1 kB minified, ~500 bytes gzipped) implementation of listenable actions or signals in JavaScript.
+**axn** is a small (< 1.2 kB minified, ~550 bytes gzipped) implementation of listenable actions or signals in JavaScript.
 
 [![license - MIT](http://b.repl.ca/v1/license-MIT-blue.png)](http://pluma.mit-license.org) [![Flattr this](https://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=pluma&url=https://github.com/pluma/axn)
 
@@ -98,6 +98,12 @@ Returns `true` if the listener was removed successfully, otherwise returns `fals
 Override this function in your action's `spec` to pre-process data passed to the action before it is emitted.
 
 The return value will be passed to the action's listeners.
+
+## axn::shouldEmit(data):Boolean
+
+Override this function in your action's `spec` to define whether data should be emitted.
+
+This function is passed the output of `beforeEmit`. If the function returns `false` or a non-truthy value, the data will not be emitted. Otherwise the action's listeners will be invoked as normally.
 
 ## axn.methods
 
