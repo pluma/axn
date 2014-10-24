@@ -50,6 +50,10 @@ axn.methods = {
     }
     return false;
   },
+  shouldEmit: function (data) {
+    'use strict';
+    return true;
+  },
   beforeEmit: function (data) {
     'use strict';
     return data;
@@ -57,6 +61,7 @@ axn.methods = {
   emit: function (data) {
     'use strict';
     data = this.beforeEmit(data);
+    if (!this.shouldEmit(data)) return;
     for (var i = 0; i < this._listeners.length; i++) {
       this._listeners[i].call(undefined, data);
     }

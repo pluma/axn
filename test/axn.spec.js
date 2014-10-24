@@ -125,5 +125,56 @@ describe('axn', function() {
       expect(action.beforeEmit).to.equal(spec.beforeEmit);
       expect(action.beforeEmit).not.to.equal(axn.methods.beforeEmit);
     });
+    describe('when shouldEmit is overridden', function () {
+      it('only emits if shouldEmit returns true', function () {
+        var action = axn({
+          shouldEmit: function () {
+            return false;
+          }
+        });
+        action.listen(function () {
+          expect().fail();
+        });
+        action();
+      });
+      it('passes the pre-processed data to shouldEmit', function (done) {
+        var value = 'potato';
+        var action = axn({
+          beforeEmit: function () {
+            return value;
+          },
+          shouldEmit: function (input) {
+            expect(input).to.equal(value);
+            done();
+          }
+        });
+        action('hi');
+      });
+    });
+    describe('when beforeEmit is overridden', function () {
+      it('passes its value to beforeEmit', function (done) {
+        var value = {yo: 'sup'};
+        var action = axn({
+          beforeEmit: function (input) {
+            expect(input).to.equal(value);
+            done();
+          }
+        });
+        action(value);
+      });
+      it('emits the result of beforeEmit', function (done) {
+        var value = 'tomato';
+        var action = axn({
+          beforeEmit: function () {
+            return value;
+          }
+        });
+        action.listen(function (input) {
+          expect(input).to.equal(value);
+          done();
+        });
+        action('nope');
+      });
+    });
   });
 });
