@@ -10,11 +10,13 @@ function axn(spec) {
   var key;
   if (spec) {
     for (key in spec) {
+      if (!spec.hasOwnProperty(key)) continue;
       if (action.hasOwnProperty(key)) continue;
       action[key] = spec[key];
     }
   }
   for (key in axn.methods) {
+    if (!axn.methods.hasOwnProperty(key)) continue;
     if (action.hasOwnProperty(key)) continue;
     action[key] = axn.methods[key];
   }
