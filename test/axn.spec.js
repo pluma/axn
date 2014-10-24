@@ -102,4 +102,18 @@ describe('axn', function() {
       expect(action._listeners).to.only.contain(callback);
     });
   });
+  describe('when a spec is provided', function () {
+    it('is extended with the spec', function () {
+      var spec = {example: 'hi'};
+      var action = axn(spec);
+      expect(action.example).to.equal(spec.example);
+    });
+    it('overrides built-ins', function () {
+      expect(axn.methods).to.have.property('beforeEmit');
+      var spec = {beforeEmit: function () {}};
+      var action = axn(spec);
+      expect(action.beforeEmit).to.equal(spec.beforeEmit);
+      expect(action.beforeEmit).not.to.equal(axn.methods.beforeEmit);
+    });
+  });
 });
