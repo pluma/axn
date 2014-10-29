@@ -2,69 +2,112 @@
 /*global describe, it */
 var expect = require('expect.js');
 var axn = require('../');
+var invoke = function (fn) {return fn();};
 
 describe('axn', function() {
+  it('is a function', function () {
+    expect(axn).to.be.a('function');
+  });
+  it('returns a function', function () {
+    expect(axn()).to.be.a('function');
+  });
   it('remembers listeners', function() {
     var listener = function() {};
     var action = axn();
     action.listen(listener);
     expect(action._listeners.length).to.equal(1);
   });
-  it('notifies listeners when data is emitted', function() {
-    var action = axn();
-    var messages = [];
-    var listener = function(data) {
-      messages.push(data);
-    };
-    var message = 'hello world';
-    action.listen(listener);
-    action(message);
-    expect(messages).to.only.contain(message);
-  });
-  it('binds listeners to the given context', function (done) {
-    var ctx = {hello: 'world'};
-    var action = axn();
-    var listener = function() {
-      expect(this).to.equal(ctx);
-      done();
-    };
-    action.listen(listener, ctx);
-    action();
-  });
-  it('notifies each listener in sequence', function() {
-    var action = axn();
-    var results = [];
-    action.listen(function() {
-      results.push('one');
+  describe('when invoked', function () {
+    var listeners = [];
+    function listen(listenable, listener, ctx) {
+      var cb = listenable.listen(listener, ctx);
+      listeners.push(cb);
+      return cb;
+    }
+    afterEach(function () {
+      listeners.splice(0).forEach(invoke);
     });
-    action.listen(function() {
-      results.push('two');
-    });
-    action.listen(function() {
-      results.push('three');
-    });
-    action('message');
-    expect(results).to.eql(['one', 'two', 'three']);
-  });
-  it('emits each message in sequence', function() {
-    var action = axn();
-    var messages = [];
-    var listener = function(msg) {
-      messages.push(msg);
-    };
-    action.listen(listener);
-    action('one');
-    action('two');
-    action('three');
-    expect(messages).to.eql(['one', 'two', 'three']);
-  });
-  describe('when notified without listeners', function() {
-    it('does not throw an error', function() {
+    it('notifies listeners', function (done) {
       var action = axn();
-      action('hello');
+      listen(action, function () {
+        done();
+      });
+      action({});
+    });
+    it('invokes listeners with their context', function (done) {
+      var ctx = {hello: 'world'};
+      var action = axn();
+      var listener = function() {
+        expect(this).to.equal(ctx);
+        done();
+      };
+      listen(action, listener, ctx);
+      action();
+    });
+    it('applies the beforeEmit function', function (done) {
+      var value1 = {hello: 'world'};
+      var value2 = {foo: 'bar'};
+      function beforeEmit(input) {
+        expect(input).to.equal(value1);
+        beforeEmit.called = true;
+        return value2;
+      }
+      var action = axn({beforeEmit: beforeEmit});
+      listen(action, function (input) {
+        expect(beforeEmit.called).to.equal(true);
+        expect(input).to.equal(value2);
+        done();
+      });
+      action(value1);
+    });
+    it('does not notify listeners removed by unlisten', function () {
+      var action = axn();
+      var fn = function () {
+        expect().fail();
+      };
+      action.listen(fn);
+      action.unlisten(fn);
+      action({});
+    });
+    it('does not notify listeners removed by callback', function () {
+      var action = axn();
+      var cb = action.listen(function () {
+        expect().fail();
+      });
+      cb();
+      action({});
+    });
+    it('does not notify listeners if shouldEmit fails', function () {
+      function shouldEmit() {
+        return false;
+      }
+      var action = axn({shouldEmit: shouldEmit});
+      listen(action, function () {expect().fail();});
+      action({});
+    });
+    it('invokes listeners in the correct order', function (done) {
+      var called = false;
+      var action = axn();
+      listen(action, function () {
+        called = true;
+      });
+      listen(action, function () {
+        expect(called).to.equal(true);
+        done();
+      });
+      action({});
+    });
+    it('passes its argument to its listeners', function (done) {
+      var value = {hello: 'world'};
+      var action = axn();
+      listen(action, function (input) {
+        expect(input).to.equal(value);
+        done();
+      });
+      action(value);
     });
   });
-  describe('when a listener is unlistened', function() {
+  describe('when a listener is unlistened by calling the callback', function() {
     var action, result, callback1, callback2;
     var listener1 = function() {
       listener1.timesCalled += 1;
@@ -96,20 +139,68 @@ describe('axn', function() {
       action('message');
       expect(listener2.timesCalled).to.equal(1);
     });
+    describe('and is unlistened again', function() {
+      it('returns false', function() {
+        var action = axn();
+        var listener = function() {};
+        var nonListener = function() {};
+        var result;
+        action.listen(listener);
+        var callback = action._listeners[action._listeners.length - 1];
+        var unlisten = action.listen(nonListener);
+        unlisten();
+        result = unlisten();
+        expect(result).to.equal(false);
+        expect(action._listeners).to.only.contain(callback);
+      });
+    });
   });
-  describe('when an unlistened listener is unlistened again', function() {
-    it('returns false', function() {
-      var action = axn();
-      var listener = function() {};
-      var nonListener = function() {};
-      var result;
-      action.listen(listener);
-      var callback = action._listeners[action._listeners.length - 1];
-      var unlisten = action.listen(nonListener);
-      unlisten();
-      result = unlisten();
-      expect(result).to.equal(false);
-      expect(action._listeners).to.only.contain(callback);
+  describe('when a listener is unlistened via unlisten', function() {
+    var action, result, callback1, callback2;
+    var listener1 = function() {
+      listener1.timesCalled += 1;
+    };
+    var listener2 = function() {
+      listener2.timesCalled += 1;
+    };
+    beforeEach(function() {
+      action = axn();
+      listener1.timesCalled = 0;
+      listener2.timesCalled = 0;
+      action.listen(listener1);
+      callback1 = action._listeners[action._listeners.length - 1];
+      action.listen(listener2);
+      callback2 = action._listeners[action._listeners.length - 1];
+      result = action.unlisten(listener1);
+    });
+    it('returns true', function() {
+      expect(result).to.equal(true);
+    });
+    it('does not unlisten other functions', function() {
+      expect(action._listeners).to.only.contain(callback2);
+    });
+    it('does not notify unlistened listeners', function() {
+      action('message');
+      expect(listener1.timesCalled).to.equal(0);
+    });
+    it('does notify other listeners', function() {
+      action('message');
+      expect(listener2.timesCalled).to.equal(1);
+    });
+    describe('and is unlistened again', function() {
+      it('returns false', function() {
+        var action = axn();
+        var listener = function() {};
+        var nonListener = function() {};
+        var result;
+        action.listen(listener);
+        var callback = action._listeners[action._listeners.length - 1];
+        action.listen(nonListener);
+        action.unlisten(nonListener);
+        result = action.unlisten(nonListener);
+        expect(result).to.equal(false);
+        expect(action._listeners).to.only.contain(callback);
+      });
     });
   });
   describe('when a spec is provided', function () {
