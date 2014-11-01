@@ -2,13 +2,13 @@
 
 **axn** is a small (< 1.2 kB minified, ~550 bytes gzipped) implementation of listenable actions or signals in JavaScript.
 
-[![license - MIT](http://b.repl.ca/v1/license-MIT-blue.png)](http://pluma.mit-license.org) [![Flattr this](https://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=pluma&url=https://github.com/pluma/axn)
+[![license - MIT](https://img.shields.io/npm/l/axn.svg)](https://pluma.mit-license.org)
+
+[![NPM status](https://nodei.co/npm/axn.png?compact=true)](https://npmjs.org/package/axn)
 
 [![browser support](https://ci.testling.com/pluma/axn.png)](https://ci.testling.com/pluma/axn)
 
-[![Build Status](https://travis-ci.org/pluma/axn.png?branch=master)](https://travis-ci.org/pluma/axn) [![Coverage Status](https://coveralls.io/repos/pluma/axn/badge.png?branch=master)](https://coveralls.io/r/pluma/axn?branch=master) [![Dependencies](https://david-dm.org/pluma/axn.png?theme=shields.io)](https://david-dm.org/pluma/axn)
-
-[![NPM status](https://nodei.co/npm/axn.png?compact=true)](https://npmjs.org/package/axn)
+[![Build Status](https://img.shields.io/travis/pluma/axn.svg)](https://travis-ci.org/pluma/axn) [![Coverage Status](https://img.shields.io/coveralls/pluma/axn.svg)](https://coveralls.io/r/pluma/axn?branch=master) [![Dependencies](https://img.shields.io/david/pluma/axn.svg)](https://david-dm.org/pluma/axn)
 
 # Install
 
