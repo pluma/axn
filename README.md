@@ -2,13 +2,13 @@
 
 **axn** is a small (< 1.2 kB minified, ~550 bytes gzipped) implementation of listenable actions or signals in JavaScript.
 
-[![license - MIT](https://img.shields.io/npm/l/axn.svg)](https://pluma.mit-license.org)
+[![license - MIT](https://img.shields.io/npm/l/axn.svg)](https://pluma.mit-license.org) [![Dependencies](https://img.shields.io/david/pluma/axn.svg)](https://david-dm.org/pluma/axn)
 
 [![NPM status](https://nodei.co/npm/axn.png?compact=true)](https://npmjs.org/package/axn)
 
 [![browser support](https://ci.testling.com/pluma/axn.png)](https://ci.testling.com/pluma/axn)
 
-[![Build Status](https://img.shields.io/travis/pluma/axn.svg)](https://travis-ci.org/pluma/axn) [![Coverage Status](https://img.shields.io/coveralls/pluma/axn.svg)](https://coveralls.io/r/pluma/axn?branch=master) [![Dependencies](https://img.shields.io/david/pluma/axn.svg)](https://david-dm.org/pluma/axn)
+[![Build Status](https://img.shields.io/travis/pluma/axn.svg)](https://travis-ci.org/pluma/axn) [![Coverage Status](https://img.shields.io/coveralls/pluma/axn.svg)](https://coveralls.io/r/pluma/axn?branch=master)
 
 # Install
 
