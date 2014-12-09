@@ -1,5 +1,6 @@
 /*jshint node: true */
-/*global describe, it */
+/*global describe, it, beforeEach, afterEach */
+'use strict';
 var expect = require('expect.js');
 var axn = require('../');
 var invoke = function (fn) {return fn();};

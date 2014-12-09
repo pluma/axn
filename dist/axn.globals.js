@@ -1,11 +1,10 @@
 (function(root){
-var require=function(key){return root[key];};
-var module = {};
+var module = {exports: {}};
+(function(require, exports, module) {
 /*jshint es3: true */
 /*global module */
-module.exports = axn;
+'use strict';
 function axn(spec) {
-  'use strict';
   function action(data) {
     action.emit(data);
   }
@@ -25,9 +24,9 @@ function axn(spec) {
   }
   return action;
 }
+
 axn.methods = {
   listen: function (fn, ctx) {
-    'use strict';
     function cb(data) {
       return fn.call(ctx, data);
     }
@@ -43,7 +42,6 @@ axn.methods = {
     };
   },
   unlisten: function (fn, ctx) {
-    'use strict';
     for (var i = 0; i < this._listeners.length; i++) {
       var listener = this._listeners[i];
       if (listener.fn === fn && listener.ctx === ctx) {
@@ -53,16 +51,13 @@ axn.methods = {
     }
     return false;
   },
-  shouldEmit: function (data) {
-    'use strict';
+  shouldEmit: function (/* data */) {
     return true;
   },
   beforeEmit: function (data) {
-    'use strict';
     return data;
   },
   emit: function (data) {
-    'use strict';
     data = this.beforeEmit(data);
     if (!this.shouldEmit(data)) return;
     for (var i = 0; i < this._listeners.length; i++) {
@@ -71,5 +66,8 @@ axn.methods = {
   }
 };
 
+module.exports = axn;
+
+}(function(key){return root[key];}, module.exports, exports));
 root.axn = module.exports;
 }(this));

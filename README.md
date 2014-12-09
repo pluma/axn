@@ -1,6 +1,6 @@
 # Synopsis
 
-**axn** is a small (< 1.2 kB minified, ~550 bytes gzipped) implementation of listenable actions or signals in JavaScript.
+**axn** is a small (< 1.1 kB minified, ~440 bytes gzipped) implementation of listenable actions or signals in JavaScript.
 
 [![license - MIT](https://img.shields.io/npm/l/axn.svg)](https://pluma.mit-license.org) [![Dependencies](https://img.shields.io/david/pluma/axn.svg)](https://david-dm.org/pluma/axn)
 
@@ -77,29 +77,29 @@ Creates a new action.
 
 If `spec` is an object, its properties will be copied to the new action, overwriting its default properties.
 
-## axn::(data)
+## action(data)
 
 Invokes the action's listeners with the given `data`.
 
-## axn::listen(fn, [ctx]):Function
+## action.listen(fn, [ctx]):Function
 
 Adds a given function to the action's listeners. If `ctx` is provided, the function will be invoked using it as its `this` context.
 
 Returns a function that will remove the listener from the action.
 
-## axn::unlisten(fn, [ctx]):Boolean
+## action.unlisten(fn, [ctx]):Boolean
 
 Removes the given function with the given context from the action's listeners.
 
 Returns `true` if the listener was removed successfully, otherwise returns `false`.
 
-## axn::beforeEmit(data):data
+## action.beforeEmit(data):data
 
 Override this function in your action's `spec` to pre-process data passed to the action before it is emitted.
 
 The return value will be passed to the action's listeners.
 
-## axn::shouldEmit(data):Boolean
+## action.shouldEmit(data):Boolean
 
 Override this function in your action's `spec` to define whether data should be emitted.
 
