@@ -71,5 +71,5 @@ axn.methods = {
   }
 };
 
-root.sublish = module.exports;
+root.axn = module.exports;
 }(this));
