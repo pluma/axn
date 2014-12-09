@@ -2,7 +2,7 @@
 
 **axn** is a small (< 1.1 kB minified, ~440 bytes gzipped) implementation of listenable actions or signals in JavaScript.
 
-[![license - MIT](https://img.shields.io/npm/l/axn.svg)](https://pluma.mit-license.org) [![Dependencies](https://img.shields.io/david/pluma/axn.svg)](https://david-dm.org/pluma/axn)
+[![license - MIT](https://img.shields.io/npm/l/axn.svg)](http://pluma.mit-license.org) [![Dependencies](https://img.shields.io/david/pluma/axn.svg)](https://david-dm.org/pluma/axn)
 
 [![NPM status](https://nodei.co/npm/axn.png?compact=true)](https://npmjs.org/package/axn)
 
