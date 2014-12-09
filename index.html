@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="axn : listenable actions">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>axn</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/pluma/axn">View on GitHub</a>
+
+          <h1 id="project_title">axn</h1>
+          <h2 id="project_tagline">listenable actions</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/pluma/axn/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/pluma/axn/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="synopsis" class="anchor" href="#synopsis" aria-hidden="true"><span class="octicon octicon-link"></span></a>Synopsis</h1>
+
+<p><strong>axn</strong> is a small (&lt; 1.1 kB minified, ~440 bytes gzipped) implementation of listenable actions or signals in JavaScript.</p>
+
+<p><a href="https://pluma.mit-license.org"><img src="https://img.shields.io/npm/l/axn.svg" alt="license - MIT"></a> <a href="https://david-dm.org/pluma/axn"><img src="https://img.shields.io/david/pluma/axn.svg" alt="Dependencies"></a></p>
+
+<p><a href="https://npmjs.org/package/axn"><img src="https://nodei.co/npm/axn.png?compact=true" alt="NPM status"></a></p>
+
+<p><a href="https://ci.testling.com/pluma/axn"><img src="https://ci.testling.com/pluma/axn.png" alt="browser support"></a></p>
+
+<p><a href="https://travis-ci.org/pluma/axn"><img src="https://img.shields.io/travis/pluma/axn.svg" alt="Build Status"></a> <a href="https://coveralls.io/r/pluma/axn?branch=master"><img src="https://img.shields.io/coveralls/pluma/axn.svg" alt="Coverage Status"></a></p>
+
+<h1>
+<a id="install" class="anchor" href="#install" aria-hidden="true"><span class="octicon octicon-link"></span></a>Install</h1>
+
+<h2>
+<a id="nodejs" class="anchor" href="#nodejs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Node.js</h2>
+
+<h3>
+<a id="with-npm" class="anchor" href="#with-npm" aria-hidden="true"><span class="octicon octicon-link"></span></a>With NPM</h3>
+
+<div class="highlight highlight-sh"><pre>npm install axn</pre></div>
+
+<h3>
+<a id="from-source" class="anchor" href="#from-source" aria-hidden="true"><span class="octicon octicon-link"></span></a>From source</h3>
+
+<div class="highlight highlight-sh"><pre>git clone https://github.com/pluma/axn.git
+<span class="pl-s3">cd</span> axn
+npm install
+npm run <span class="pl-s3">test</span> <span class="pl-k">&amp;&amp;</span> npm run dist</pre></div>
+
+<h2>
+<a id="browser" class="anchor" href="#browser" aria-hidden="true"><span class="octicon octicon-link"></span></a>Browser</h2>
+
+<h3>
+<a id="with-component" class="anchor" href="#with-component" aria-hidden="true"><span class="octicon octicon-link"></span></a>With component</h3>
+
+<div class="highlight highlight-sh"><pre>component install pluma/axn</pre></div>
+
+<p><a href="https://github.com/component/component">Learn more about component</a>.</p>
+
+<h3>
+<a id="with-bower" class="anchor" href="#with-bower" aria-hidden="true"><span class="octicon octicon-link"></span></a>With bower</h3>
+
+<div class="highlight highlight-sh"><pre>bower install axn</pre></div>
+
+<p><a href="https://github.com/twitter/bower">Learn more about bower</a>.</p>
+
+<h3>
+<a id="with-a-commonjs-module-loader" class="anchor" href="#with-a-commonjs-module-loader" aria-hidden="true"><span class="octicon octicon-link"></span></a>With a CommonJS module loader</h3>
+
+<p>Download the <a href="https://raw.github.com/pluma/axn/master/dist/axn.min.js">latest minified CommonJS release</a> and add it to your project.</p>
+
+<p><a href="http://wiki.commonjs.org/wiki/Modules/1.1">Learn more about CommonJS modules</a>.</p>
+
+<h3>
+<a id="with-an-amd-module-loader" class="anchor" href="#with-an-amd-module-loader" aria-hidden="true"><span class="octicon octicon-link"></span></a>With an AMD module loader</h3>
+
+<p>Download the <a href="https://raw.github.com/pluma/axn/master/dist/axn.amd.min.js">latest minified AMD release</a> and add it to your project.</p>
+
+<p><a href="http://requirejs.org/docs/whyamd.html">Learn more about AMD modules</a>.</p>
+
+<h3>
+<a id="as-a-standalone-library" class="anchor" href="#as-a-standalone-library" aria-hidden="true"><span class="octicon octicon-link"></span></a>As a standalone library</h3>
+
+<p>Download the <a href="https://raw.github.com/pluma/axn/master/dist/axn.globals.min.js">latest minified standalone release</a> and add it to your project.</p>
+
+<div class="highlight highlight-html"><pre>&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s1"><span class="pl-pds">"</span>/your/js/path/axn.globals.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
+
+<p>This makes the <code>axn</code> module available in the global namespace.</p>
+
+<h1>
+<a id="api" class="anchor" href="#api" aria-hidden="true"><span class="octicon octicon-link"></span></a>API</h1>
+
+<h2>
+<a id="axnspecfunction" class="anchor" href="#axnspecfunction" aria-hidden="true"><span class="octicon octicon-link"></span></a>axn([spec]):Function</h2>
+
+<p>Creates a new action.</p>
+
+<p>If <code>spec</code> is an object, its properties will be copied to the new action, overwriting its default properties.</p>
+
+<h2>
+<a id="actiondata" class="anchor" href="#actiondata" aria-hidden="true"><span class="octicon octicon-link"></span></a>action(data)</h2>
+
+<p>Invokes the action's listeners with the given <code>data</code>.</p>
+
+<h2>
+<a id="actionlistenfn-ctxfunction" class="anchor" href="#actionlistenfn-ctxfunction" aria-hidden="true"><span class="octicon octicon-link"></span></a>action.listen(fn, [ctx]):Function</h2>
+
+<p>Adds a given function to the action's listeners. If <code>ctx</code> is provided, the function will be invoked using it as its <code>this</code> context.</p>
+
+<p>Returns a function that will remove the listener from the action.</p>
+
+<h2>
+<a id="actionunlistenfn-ctxboolean" class="anchor" href="#actionunlistenfn-ctxboolean" aria-hidden="true"><span class="octicon octicon-link"></span></a>action.unlisten(fn, [ctx]):Boolean</h2>
+
+<p>Removes the given function with the given context from the action's listeners.</p>
+
+<p>Returns <code>true</code> if the listener was removed successfully, otherwise returns <code>false</code>.</p>
+
+<h2>
+<a id="actionbeforeemitdatadata" class="anchor" href="#actionbeforeemitdatadata" aria-hidden="true"><span class="octicon octicon-link"></span></a>action.beforeEmit(data):data</h2>
+
+<p>Override this function in your action's <code>spec</code> to pre-process data passed to the action before it is emitted.</p>
+
+<p>The return value will be passed to the action's listeners.</p>
+
+<h2>
+<a id="actionshouldemitdataboolean" class="anchor" href="#actionshouldemitdataboolean" aria-hidden="true"><span class="octicon octicon-link"></span></a>action.shouldEmit(data):Boolean</h2>
+
+<p>Override this function in your action's <code>spec</code> to define whether data should be emitted.</p>
+
+<p>This function is passed the output of <code>beforeEmit</code>. If the function returns <code>false</code> or a non-truthy value, the data will not be emitted. Otherwise the action's listeners will be invoked as normally.</p>
+
+<h2>
+<a id="axnmethods" class="anchor" href="#axnmethods" aria-hidden="true"><span class="octicon octicon-link"></span></a>axn.methods</h2>
+
+<p>An object containing the default properties that will be copied to new actions.</p>
+
+<h1>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h1>
+
+<p>The MIT/Expat license. For more information, see <a href="http://pluma.mit-license.org/">http://pluma.mit-license.org/</a> or the accompanying <a href="https://github.com/pluma/axn/blob/master/LICENSE">LICENSE</a> file.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">axn maintained by <a href="https://github.com/pluma">pluma</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
