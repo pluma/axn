@@ -39,11 +39,12 @@ axn.methods = {
     };
   },
   listenOnce: function (fn, ctx) {
+    var unlisten = this.listen(callThenUnlisten, ctx);
     function callThenUnlisten(data) {
       fn(data);
       unlisten();
     }
-    var unlisten = this.listen(callThenUnlisten, ctx);
+    return unlisten;
   },
   unlisten: function (fn, ctx) {
     for (var i = 0; i < this._listeners.length; i++) {
