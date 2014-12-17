@@ -107,6 +107,36 @@ describe('axn', function() {
       });
       action(value);
     });
+    it('invokes listenOnce only once', function (done) {
+      var times = 0;
+      var action = axn();
+      action.listenOnce(function () {
+        times++;
+      });
+      action();
+      expect(times).to.equal(1);
+      action();
+      expect(times).to.equal(1);
+      done();
+    });
+    it('removes listener after listenOnce', function (done) {
+      var action = axn();
+      action.listenOnce(function () {});
+      expect(action._listeners.length).to.equal(1);
+      action();
+      expect(action._listeners.length).to.equal(0);
+      done();
+    });
+    it('invokes listenOnce with context', function (done) {
+      var ctx = {hello: 'world'};
+      var action = axn();
+      var listener = function() {
+        expect(this).to.equal(ctx);
+        done();
+      };
+      action.listenOnce(listener, ctx);
+      done();
+    });
   });
   describe('when a listener is unlistened by calling the callback', function() {
     var action, result, callback1, callback2;
