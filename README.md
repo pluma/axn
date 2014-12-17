@@ -6,9 +6,7 @@
 
 [![NPM status](https://nodei.co/npm/axn.png?compact=true)](https://npmjs.org/package/axn)
 
-[![browser support](https://ci.testling.com/pluma/axn.png)](https://ci.testling.com/pluma/axn)
-
-[![Build Status](https://img.shields.io/travis/pluma/axn.svg)](https://travis-ci.org/pluma/axn) [![Coverage Status](https://img.shields.io/coveralls/pluma/axn.svg)](https://coveralls.io/r/pluma/axn?branch=master)
+[![Build Status](https://img.shields.io/travis/pluma/axn.svg)](https://travis-ci.org/pluma/axn) [![Coverage Status](https://img.shields.io/coveralls/pluma/axn.svg)](https://coveralls.io/r/pluma/axn?branch=master) [![Codacy rating](https://img.shields.io/codacy/18052d33b87d4f2fb42c79ab99152e9b)](https://www.codacy.com/public/me_4/axn)
 
 # Install
 
