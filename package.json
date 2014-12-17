@@ -39,21 +39,5 @@
   },
   "engines": {
     "node": ">=0.6"
-  },
-  "testling": {
-    "files": "spec/*.js",
-    "harness": "mocha",
-    "browsers": [
-      "chrome/latest",
-      "chrome/canary",
-      "firefox/3.6..4",
-      "firefox/latest",
-      "firefox/nightly",
-      "opera/10",
-      "opera/latest",
-      "opera/next",
-      "safari/4..latest",
-      "ie/6..latest"
-    ]
   }
 }
