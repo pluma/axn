@@ -1,26 +1,24 @@
 define(function(require, exports, module) {
 /*jshint es3: true */
 /*global module */
-'use strict';
+'use strict'
 function axn(spec) {
   function action(data) {
     action.emit(data);
   }
   action._listeners = [];
-  var key;
-  if (spec) {
-    for (key in spec) {
-      if (!spec.hasOwnProperty(key)) continue;
-      if (action.hasOwnProperty(key)) continue;
-      action[key] = spec[key];
+  if (spec) ext(action, spec);
+  ext(action, axn.methods);
+  return action;
+}
+
+function ext(obj, src) {
+  for (var key in src) {
+    if (src.hasOwnProperty(key)) {
+      if (obj.hasOwnProperty(key)) continue;
+      obj[key] = src[key];
     }
   }
-  for (key in axn.methods) {
-    if (!axn.methods.hasOwnProperty(key)) continue;
-    if (action.hasOwnProperty(key)) continue;
-    action[key] = axn.methods[key];
-  }
-  return action;
 }
 
 axn.methods = {
