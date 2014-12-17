@@ -79,6 +79,12 @@ If `spec` is an object, its properties will be copied to the new action, overwri
 
 Invokes the action's listeners with the given `data`.
 
+## action.listenOnce(fn, [ctx]):Function
+
+Adds a given function to the action's listeners. If `ctx` is provided, the function will be invoked using it as its `this` context. The function will only be invoked once and is then automatically removed from the action's listeners.
+
+Returns a function that will remove the listener from the action.
+
 ## action.listen(fn, [ctx]):Function
 
 Adds a given function to the action's listeners. If `ctx` is provided, the function will be invoked using it as its `this` context.
