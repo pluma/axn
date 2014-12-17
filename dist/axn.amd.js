@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
 /*jshint es3: true */
 /*global module */
-'use strict'
+'use strict';
 function axn(spec) {
   function action(data) {
     action.emit(data);
