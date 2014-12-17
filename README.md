@@ -1,6 +1,6 @@
 # Synopsis
 
-**axn** is a small (~1.2 kB minified, ~480 bytes gzipped) implementation of listenable actions or signals in JavaScript.
+**axn** is a small (~1.3 kB minified, 481 bytes gzipped) implementation of listenable actions or signals in JavaScript.
 
 [![license - MIT](https://img.shields.io/npm/l/axn.svg)](http://pluma.mit-license.org) [![Dependencies](https://img.shields.io/david/pluma/axn.svg)](https://david-dm.org/pluma/axn)
 
@@ -79,12 +79,6 @@ If `spec` is an object, its properties will be copied to the new action, overwri
 
 Invokes the action's listeners with the given `data`.
 
-## action.listenOnce(fn, [ctx]):Function
-
-Adds a given function to the action's listeners. If `ctx` is provided, the function will be invoked using it as its `this` context. The function will only be invoked once and is then automatically removed from the action's listeners.
-
-Returns a function that will remove the listener from the action.
-
 ## action.listen(fn, [ctx]):Function
 
 Adds a given function to the action's listeners. If `ctx` is provided, the function will be invoked using it as its `this` context.
@@ -96,6 +90,14 @@ Returns a function that will remove the listener from the action.
 Removes the given function with the given context from the action's listeners.
 
 Returns `true` if the listener was removed successfully, otherwise returns `false`.
+
+## action.listenOnce(fn, [ctx]):Function
+
+Adds a given function to the action's listeners. If `ctx` is provided, the function will be invoked using it as its `this` context.
+
+The function will only be invoked once and then automatically removed from the action's listeners.
+
+Returns a function that will remove the listener from the action.
 
 ## action.beforeEmit(data):data
 
