@@ -117,6 +117,24 @@ This function is passed the output of `beforeEmit`. If the function returns `fal
 
 An object containing the default properties that will be copied to new actions.
 
+## axn.async([spec]):Function
+
+Creates a new async action.
+
+If `spec` is an object, its properties will be copied to the new action, overwriting its default properties.
+
+**NOTE:** async actions use promises. In order to keep the module lightweight, `axn`uses the global `Promise` implementation defined by EcmaScript 6. If you want to use async actions in environments that don't provide an ES6-compatible `Promise` implementation, you need to make sure to use a polyfill like [es6-promise](https://www.npmjs.com/package/es6-promise). If you're not interested in async actions, you can ignore this section.
+
+## asyncAction(data):Promise
+
+Invokes the action's listeners in sequence with the given `data`. Returns a promise resolving to the return value of the last listener called (or rejected accordingly).
+
+In addition to `data`, each listener will be passed the resolved value of the previous listener as a second argument, or `data` if the listener is the first in the sequence.
+
+## axn.async.methods
+
+An object containing the default properties that will be copied to new async actions in addition to those in `axn.methods`.
+
 # License
 
 The MIT/Expat license. For more information, see http://pluma.mit-license.org/ or the accompanying [LICENSE](https://github.com/pluma/axn/blob/master/LICENSE) file.

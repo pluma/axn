@@ -1,14 +1,21 @@
 /*jshint es3: true */
-/*global module */
+/*global module, Promise */
 'use strict';
-function axn(spec) {
+function createAction(spec, base) {
   function action(data) {
     return action.emit(data);
   }
   action._listeners = [];
   if (spec) ext(action, spec);
-  ext(action, axn.methods);
-  return action;
+  return ext(action, base);
+}
+
+function axn(spec) {
+  return createAction(spec, axn.methods);
+}
+
+function aaxn(spec) {
+  return ext(createAction(spec, aaxn.methods), axn.methods);
 }
 
 function ext(obj, src) {
@@ -18,13 +25,17 @@ function ext(obj, src) {
       obj[key] = src[key];
     }
   }
+  return obj;
 }
 
 axn.methods = {
-  _listen: function (fn, ctx, once) {
-    function cb(data, result) {
+  _cb: function (fn, ctx) {
+    return function (data, result) {
       return fn.call(ctx, data, result);
-    }
+    };
+  },
+  _listen: function (fn, ctx, once) {
+    var cb = this._cb(fn, ctx);
     this._listeners.push(cb);
     cb.ctx = ctx;
     cb.fn = fn;
@@ -59,9 +70,12 @@ axn.methods = {
   beforeEmit: function (data) {
     return data;
   },
+  _beforeEmit: function (data) {
+    return data;
+  },
   emit: function (data) {
     data = this.beforeEmit(data);
-    var result = data;
+    var result = this._beforeEmit(data);
     if (!this.shouldEmit(data)) return result;
     for (var i = 0; i < this._listeners.length; i++) {
       var listener = this._listeners[i];
@@ -74,5 +88,20 @@ axn.methods = {
     return result;
   }
 };
+
+aaxn.methods = {
+  _cb: function (fn, ctx) {
+    return function (data, p) {
+      return p.then(function (result) {
+        return fn.call(ctx, data, result);
+      });
+    };
+  },
+  _beforeEmit: function (data) {
+    return Promise.resolve(data);
+  }
+};
+
+axn.async = aaxn;
 
 module.exports = axn;
