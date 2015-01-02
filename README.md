@@ -77,7 +77,9 @@ If `spec` is an object, its properties will be copied to the new action, overwri
 
 ## action(data)
 
-Invokes the action's listeners with the given `data`.
+Invokes the action's listeners in sequence with the given `data`. Returns the return value of the last listener called.
+
+In addition to `data`, each listener will be passed the return value of the previous listener as a second argument, or `data` if the listener is the first in the sequence.
 
 ## action.listen(fn, [ctx]):Function
 

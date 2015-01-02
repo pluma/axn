@@ -3,7 +3,7 @@
 'use strict';
 function axn(spec) {
   function action(data) {
-    action.emit(data);
+    return action.emit(data);
   }
   action._listeners = [];
   if (spec) ext(action, spec);
@@ -22,8 +22,8 @@ function ext(obj, src) {
 
 axn.methods = {
   _listen: function (fn, ctx, once) {
-    function cb(data) {
-      return fn.call(ctx, data);
+    function cb(data, result) {
+      return fn.call(ctx, data, result);
     }
     this._listeners.push(cb);
     cb.ctx = ctx;
@@ -61,15 +61,17 @@ axn.methods = {
   },
   emit: function (data) {
     data = this.beforeEmit(data);
-    if (!this.shouldEmit(data)) return;
+    var result = data;
+    if (!this.shouldEmit(data)) return result;
     for (var i = 0; i < this._listeners.length; i++) {
       var listener = this._listeners[i];
-      listener.call(undefined, data);
+      result = listener(data, result);
       if (listener.once) {
         this._listeners.splice(i, 1);
         i -= 1;
       }
     }
+    return result;
   }
 };
 
