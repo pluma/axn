@@ -1,13 +1,8 @@
 {
   "name": "axn",
   "version": "1.5.0",
-  "author": "Alan Plum <me@pluma.io>",
   "description": "Minimalist listenable actions.",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/pluma/axn.git"
-  },
+  "main": "./index.js",
   "keywords": [
     "action",
     "events",
@@ -20,16 +15,6 @@
     "README.md",
     "LICENSE"
   ],
-  "dependencies": {},
-  "devDependencies": {
-    "coveralls": "^2.11.2",
-    "expect.js": "^0.3.1",
-    "istanbul": "^0.3.2",
-    "jshint": "^2.5.6",
-    "mocha": "^2.0.1",
-    "uglify-js": "^2.4.15"
-  },
-  "main": "./index.js",
   "scripts": {
     "lint": "jshint index.js test",
     "test": "mocha --growl -R spec",
@@ -43,7 +28,23 @@
     "amd": "cat templates/amd.before index.js templates/amd.after > dist/axn.amd.js",
     "amd-min": "npm run amd; uglifyjs dist/axn.amd.js > dist/axn.amd.min.js"
   },
-  "engines": {
-    "node": ">=0.6"
-  }
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pluma/axn.git"
+  },
+  "author": "Alan Plum <me@pluma.io>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pluma/axn/issues"
+  },
+  "homepage": "https://github.com/pluma/axn",
+  "devDependencies": {
+    "coveralls": "^2.11.2",
+    "expect.js": "^0.3.1",
+    "istanbul": "^0.3.2",
+    "jshint": "^2.5.6",
+    "mocha": "^2.0.1",
+    "uglify-js": "^2.4.15"
+  },
+  "dependencies": {}
 }
