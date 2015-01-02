@@ -14,6 +14,12 @@
     "emitter",
     "signals"
   ],
+  "files": [
+    "index.js",
+    "package.json",
+    "README.md",
+    "LICENSE"
+  ],
   "dependencies": {},
   "devDependencies": {
     "coveralls": "^2.11.2",
