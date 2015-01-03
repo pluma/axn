@@ -131,6 +131,18 @@ Invokes the action's listeners in sequence with the given `data`. Returns a prom
 
 In addition to `data`, each listener will be passed the resolved value of the previous listener as a second argument, or `data` if the listener is the first in the sequence.
 
+The promise returned by the action has two additional methods to allow aborting an action that is still in progress:
+
+## promise.cancel()
+
+Cancels the action. Listeners that have not yet been invoked will no longer be called and the promise will be rejected with an error.
+
+## promise.cancelled():Boolean
+
+Returns `true` if the action was cancelled or `false` otherwise.
+
+This function can be used to determine whether a promise was rejected due to a regular error or because it was explicitly cancelled.
+
 ## axn.async.methods
 
 An object containing the default properties that will be copied to new async actions in addition to those in `axn.methods`.
