@@ -73,32 +73,53 @@ axn.methods = {
   _beforeEmit: function (data) {
     return data;
   },
+  _afterEmit: function (result/*, data */) {
+    return result;
+  },
   emit: function (data) {
     data = this.beforeEmit(data);
-    var result = this._beforeEmit(data);
+    var initial = this._beforeEmit(data);
+    var result = initial;
     if (!this.shouldEmit(data)) return result;
     for (var i = 0; i < this._listeners.length; i++) {
       var listener = this._listeners[i];
-      result = listener(data, result);
+      result = listener(data, result, initial);
       if (listener.once) {
         this._listeners.splice(i, 1);
         i -= 1;
       }
     }
+    result = this._afterEmit(result, initial);
     return result;
   }
 };
 
 aaxn.methods = {
   _cb: function (fn, ctx) {
-    return function (data, p) {
+    return function (data, p, p0) {
       return p.then(function (result) {
+        if (p0._cancelled) return Promise.reject(new Error('rejected'));
         return fn.call(ctx, data, result);
       });
     };
   },
   _beforeEmit: function (data) {
-    return Promise.resolve(data);
+    return ext(Promise.resolve(data), {
+      _cancelled: false
+    });
+  },
+  _afterEmit: function (p, p0) {
+    return ext(p.then(function (value) {
+      if (p0._cancelled) return Promise.reject(new Error('rejected'));
+      return value;
+    }), {
+      cancel: function () {
+        p0._cancelled = true;
+      },
+      cancelled: function () {
+        return p0._cancelled;
+      }
+    });
   }
 };
 
