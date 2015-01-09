@@ -129,6 +129,6 @@ aaxn.methods = {
 axn.async = aaxn;
 
 module.exports = axn;
-}(function(key){return root[key];}, module.exports, exports));
+}(function(key){return root[key];}, module.exports, module));
 root.axn = module.exports;
 }(this));
