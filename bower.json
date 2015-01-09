@@ -1,0 +1,15 @@
+{
+  "name": "axn",
+  "main": "./dist/axn.js",
+  "ignore": [
+    "**/.*",
+    "component.json",
+    "package.json",
+    "node_modules",
+    "coverage",
+    "npm-debug.log",
+    "templates",
+    "index.js",
+    "test"
+  ]
+}
