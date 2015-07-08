@@ -1,6 +1,6 @@
-# Synopsis
+ Synopsis
 
-**axn** is a small-ish (~2.1 kB minified, 700 bytes gzipped) implementation of listenable actions or signals in JavaScript for browsers (IE8+) and the server.
+**axn** is a small-ish (~2.2 kB minified, 758 bytes gzipped) implementation of listenable actions or signals in JavaScript for browsers (IE8+) and the server.
 
 [![license - MIT](https://img.shields.io/npm/l/axn.svg)](http://pluma.mit-license.org) [![Dependencies](https://img.shields.io/david/pluma/axn.svg)](https://david-dm.org/pluma/axn)
 
