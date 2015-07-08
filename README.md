@@ -1,6 +1,6 @@
 # Synopsis
 
-**axn** is a small-ish (~2.1 kB minified, 700 bytes gzipped) implementation of listenable actions or signals in JavaScript.
+**axn** is a small-ish (~2.1 kB minified, 700 bytes gzipped) implementation of listenable actions or signals in JavaScript for browsers (IE8+) and the server.
 
 [![license - MIT](https://img.shields.io/npm/l/axn.svg)](http://pluma.mit-license.org) [![Dependencies](https://img.shields.io/david/pluma/axn.svg)](https://david-dm.org/pluma/axn)
 
@@ -67,6 +67,30 @@ Download the [latest minified standalone release](https://raw.github.com/pluma/a
 
 This makes the `axn` module available in the global namespace.
 
+# Examples
+
+```js
+import axn from 'axn';
+
+let action = axn();
+
+let unlisten = action.listen(data => data.toUpperCase());
+action.listen((data, modified) => console.log('received data:', data, modified));
+action.listen(() => 42);
+
+let result = action('hello'); // -> received data: hello HELLO
+result === 42;
+
+unlisten();
+action('hello'); // -> received data: hello hello
+
+let asyncAction = axn.async();
+
+asyncAction.listen(data => Promise.resolve(data.toUpperCase()));
+
+asyncAction('hello').then(result => console.log(result)); // -> HELLO
+```
+
 # API
 
 ## axn([spec]):Function
@@ -78,6 +102,8 @@ If `spec` is an object, its properties will be copied to the new action, overwri
 ## action(data)
 
 Invokes the action's listeners in sequence with the given `data`. Returns the return value of the last listener called.
+
+If passed more than one argument, the arguments will be passed on as an array.
 
 In addition to `data`, each listener will be passed the return value of the previous listener as a second argument, or `data` if the listener is the first in the sequence.
 
@@ -123,7 +149,7 @@ Creates a new async action.
 
 If `spec` is an object, its properties will be copied to the new action, overwriting its default properties.
 
-**NOTE:** async actions use promises. In order to keep the module lightweight, `axn`uses the global `Promise` implementation defined by EcmaScript 6. If you want to use async actions in environments that don't provide an ES6-compatible `Promise` implementation, you need to make sure to use a polyfill like [es6-promise](https://www.npmjs.com/package/es6-promise). If you're not interested in async actions, you can ignore this section.
+**NOTE:** async actions use promises. `axn` uses the global `Promise` implementation defined by ES 2015. If you want to use async actions in environments that don't provide an ES2015-compatible `Promise` implementation, you need to make sure to use a polyfill like [es6-promise](https://www.npmjs.com/package/es6-promise). If you're not interested in async actions, you can ignore this section.
 
 ## asyncAction(data):Promise
 
@@ -133,9 +159,9 @@ In addition to `data`, each listener will be passed the resolved value of the pr
 
 The promise returned by the action has two additional methods to allow aborting an action that is still in progress:
 
-## promise.cancel()
+## promise.cancel([message])
 
-Cancels the action. Listeners that have not yet been invoked will no longer be called and the promise will be rejected with an error.
+Cancels the action. Listeners that have not yet been invoked will no longer be called and the promise will be rejected with an error with the given message or `"cancelled"` if no message was provided.
 
 ## promise.cancelled():Boolean
 

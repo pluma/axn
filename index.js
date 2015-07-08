@@ -76,7 +76,9 @@ axn.methods = {
   _afterEmit: function (result/*, data */) {
     return result;
   },
-  emit: function (data) {
+  emit: function (/* ...data */) {
+    var data = Array.prototype.slice.call(arguments);
+    if (data.length < 2) data = data[0];
     data = this.beforeEmit(data);
     var initial = this._beforeEmit(data);
     var result = initial;
@@ -98,7 +100,7 @@ aaxn.methods = {
   _cb: function (fn, ctx) {
     return function (data, p, p0) {
       return p.then(function (result) {
-        if (p0._cancelled) return Promise.reject(new Error('rejected'));
+        if (p0._cancelled) return Promise.reject(new Error(p0._cancelled));
         return fn.call(ctx, data, result);
       });
     };
@@ -110,19 +112,18 @@ aaxn.methods = {
   },
   _afterEmit: function (p, p0) {
     return ext(p.then(function (value) {
-      if (p0._cancelled) return Promise.reject(new Error('rejected'));
+      if (p0._cancelled) return Promise.reject(new Error(p0._cancelled));
       return value;
     }), {
-      cancel: function () {
-        p0._cancelled = true;
+      cancel: function (reason) {
+        p0._cancelled = reason || 'cancelled';
       },
       cancelled: function () {
-        return p0._cancelled;
+        return Boolean(p0._cancelled);
       }
     });
   }
 };
 
 axn.async = aaxn;
-
 module.exports = axn;
